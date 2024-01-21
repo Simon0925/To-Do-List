@@ -9,9 +9,10 @@ export default  function Navigation() {
             <nav >
                 <NavLink   className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']}  to={'/'} >Add</NavLink>
 				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/today'} >Today</NavLink>
+				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/tomorrow'} >Tomorrow</NavLink>
 				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/week'} >Week</NavLink>
 				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/month'} >Month</NavLink>
-				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/Year'} >Year</NavLink>
+				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/year'} >Year</NavLink>
             </nav>
         </div>
         </>
