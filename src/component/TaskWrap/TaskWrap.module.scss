@@ -1,0 +1,120 @@
+
+.to-do-list{
+    margin-top: 1em;
+    border: 3px solid black;
+    border-radius: 30px;
+    width: 98%;
+    height: 100px;
+    min-height: 100px;
+    overflow: hidden;
+    .to-do-wrap-content{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 24px;
+        height: 100%;
+
+       .active{
+        display: none;
+       }
+    }
+  
+
+    .to-do-data{
+        display: none;
+
+    }
+   
+   }
+
+
+
+
+   .to-do-list-open{
+    margin-top: 1em;
+    border: 3px solid black;
+    border-radius: 30px;
+    width: 98%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    font-size: 24px;
+    min-height: 100px;
+ 
+    .to-do-data{
+        width: 100%;
+        height: 75%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .date-time{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px;
+            box-sizing: border-box; 
+            input{
+                border-radius: 15px;
+                outline: none;
+                border: 1px solid black;
+                padding: 10px;
+                height: 20px;
+                font-size: 20px;
+            }
+        }
+        textarea{
+            height: 60%;
+            margin: 0 20px;
+            height: 150px;
+            outline: none;
+            border-radius: 15px;
+            border: 1px solid black;
+            padding: 10px 20px;
+            font-size: 20px;
+
+        }
+        .control-btn{
+         
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            button{
+                font-size: 16px;
+            color: white;
+            background-color: black;
+            border-radius: 15px;
+            outline: none;
+            border: none;
+            padding: 10px 30px;
+           
+            &:hover{
+                background-color:rgb(88, 87, 87);
+            }
+            }
+        }
+        
+    }
+    .to-do-wrap-content{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+        .active{
+            display: none;
+           }
+        .open-btn{
+           
+        }
+        .to-do-list-title-inpt{
+           
+            padding: 10px ;
+        }
+    }
+   }

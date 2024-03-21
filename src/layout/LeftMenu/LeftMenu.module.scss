@@ -1,15 +1,16 @@
 .leftMenu-wrap {
-    height: calc(100vh - 25px); 
+    height: calc(100% - 25px); 
     width: calc(20% - 20px); 
+    // min-width: 270px;
+    // max-width: 270px;
     position: fixed;
     top: 10px; 
     left: 10px; 
-    overflow-y: auto;
     border: 3px solid black;
     background-color: #FDFDFD;
     border-radius: 30px;
+    white-space: nowrap;
 
-    
 
     .logo{
         width: 100%;
@@ -21,5 +22,4 @@
             font-size: 50px;
         }
     }
-    
 }

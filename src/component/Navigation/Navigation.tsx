@@ -8,10 +8,7 @@ export default  function Navigation() {
         <div className={styles['nav-wrap']}>
             <nav >
                 <NavLink   className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']}  to={'/'} >Add</NavLink>
-				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/today'} >Today</NavLink>
-				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/tomorrow'} >Tomorrow</NavLink>
-				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/week'} >Week</NavLink>
-				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/month'} >Month</NavLink>
+				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/posts'} >Posts</NavLink>
 				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/year'} >Year</NavLink>
             </nav>
         </div>
