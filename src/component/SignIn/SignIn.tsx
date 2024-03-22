@@ -43,8 +43,6 @@ export default function SignIn({ changeForm }: SignInProps) {
 
         const responseData = await response.json();
 
-        console.log('Error response:', responseData);
-
         if (response.status === 400 && responseData.error === 'User not found') {
           setErrors({
             ...errors,
@@ -62,17 +60,11 @@ export default function SignIn({ changeForm }: SignInProps) {
 
         const responseData = await response.json();
 
-        console.log('toke : ',responseData.accessToken)
-
         localStorage.setItem('accessToken', responseData.accessToken);
 
         
+        dispatch(login({login:true, id:responseData.id}));
 
-        dispatch(login({ token: responseData.token , login:true}));
-
-
-
-        console.log(responseData.message);
       }
     } catch (error) {
       console.error('Error:', error);

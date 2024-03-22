@@ -33,7 +33,9 @@ router.post('/api/auth', async (req, res) => {
 
         await TokenService.saveRefreshToken(user.id, refreshToken);
 
-        return res.status(200).json({ success: true, message: 'Authentication successful', accessToken });
+        const id = user.id
+
+        return res.status(200).json({ success: true, message: 'Authentication successful', accessToken,id });
 
     } catch (error) {
         console.error('Error:', error);

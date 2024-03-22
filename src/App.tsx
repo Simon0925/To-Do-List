@@ -8,11 +8,15 @@ import { RootState} from './store/store';
 
 import tokenVarification from './tokenVarification'
 
+import { useDispatch } from 'react-redux';
+import { login } from './store/auth.slice';
+
 
 function App() {
 
   const auth = useSelector((state: RootState) => state.auth);
 
+  const dispatch = useDispatch()
 
   const [isLogin, setIsLogin] = useState(false);
 
@@ -22,12 +26,18 @@ function App() {
     setIsLogin(auth.loggedIn)
   },[auth])
  
-
   useEffect(() => {
     async function checkLoginStatus() {
       const status = await tokenVarification(); 
-      setIsLogin(!!status); 
+
+      if (status && typeof status !== 'boolean') {
+        setIsLogin(true);
+        dispatch(login({ login: true, id: status.id }));
+      } else {
+        setIsLogin(false);
+      }
     }
+  
     checkLoginStatus();
   }, []);
 

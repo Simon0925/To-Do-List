@@ -1,7 +1,11 @@
 
+
+
 async function tokenVarification () {
+
+
     const token = localStorage.getItem('accessToken');
-    if (!token) return console.log('no token')
+    if (!token) return null
     if (token) {
       try {
         const response = await fetch('http://localhost:3001/api/verify-token', {
@@ -14,13 +18,11 @@ async function tokenVarification () {
       
         const responseData = await response.json();
 
-        console.log('areEqual:',responseData.areEqual)
-        
+       
         if (responseData.areEqual) {
-            console.log('Token is valid');
-            return true
+            return {areEqual:true,id:responseData.userId}
         } else {
-          console.log('Token is invalid');
+          return false
         }
       } catch (error) {
         console.log(error)

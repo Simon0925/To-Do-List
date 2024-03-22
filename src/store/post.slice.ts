@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+import { RootState } from './store';
 
 export interface Post {
   id: string;
@@ -15,16 +16,25 @@ export interface addPostInterface {
   note: string;
 }
 
+function getId(state: RootState) {
+  return state.auth;
+}
+
 export const fetchPosts = createAsyncThunk(
     'post/fetchPosts',
-    async (_, { rejectWithValue }) => {
+    async (_, { getState,rejectWithValue }) => {
+
+      const authData = getId(getState() as RootState);
+
+      console.log('AuthData: ', authData.id);
+      
       try {
-        const response = await fetch('http://localhost:3001/api/post');
+        const response = await fetch(`http://localhost:3001/api/post?userId=${authData.id}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        const data = await response.json();
-        return data[0].post;
+        const  data = await response.json();
+        return data;
       } catch (error) {
         return rejectWithValue('An unexpected error occurred');
       }
@@ -33,9 +43,12 @@ export const fetchPosts = createAsyncThunk(
 
   export const addPost = createAsyncThunk(
     'post/addPost',
-    async (postData:addPostInterface, { rejectWithValue }) => {
+    async (postData:addPostInterface, {getState, rejectWithValue }) => {
+
+      const authData = getId(getState() as RootState);
+
       try {
-        const response = await fetch('http://localhost:3001/api/post', {
+        const response = await fetch(`http://localhost:3001/api/post?userId=${authData.id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -55,10 +68,18 @@ export const fetchPosts = createAsyncThunk(
 
   export const deletePost = createAsyncThunk(
     'posts/deletePost',
-    async (postId: string, { rejectWithValue }) => {
+    async (postId: string, {getState, rejectWithValue }) => {
+
+      const authData = getId(getState() as RootState);
+      
+      const userId = authData.id
+
       try {
-        const response = await fetch(`http://localhost:3001/api/post/${postId}`, {
+        const response = await fetch(`http://localhost:3001/api/post/${postId}?userId=${userId}`, {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          }
         });
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -72,11 +93,17 @@ export const fetchPosts = createAsyncThunk(
   
   export const editPost = createAsyncThunk(
     'post/editPost',
-    async (updateData: Post, { rejectWithValue }) => {
+    async (updateData: Post, {getState, rejectWithValue }) => {
+
+      const authData = getId(getState() as RootState);
+      
+      const userId = authData.id
+
       const { id, ...data } = updateData;
+
       console.log('Post slice export const editPost  ', id, data);
       try {
-        const response = await fetch(`http://localhost:3001/api/post/${id}`, {
+        const response = await fetch(`http://localhost:3001/api/post/${id}?userId=${userId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

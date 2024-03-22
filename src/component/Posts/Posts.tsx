@@ -19,7 +19,9 @@ export default function Posts ({selectedFilter,fromDate,toDate}:PostsProps){
     const useDispatch = () => useReduxDispatch<AppDispatch>();
 
     const dispatch = useDispatch();
+
     const posts = useSelector((state: RootState) => state.post.posts);
+    
     const [search , setSearch] = useState('');
 
     const [result, setResult] = useState(posts);
@@ -113,7 +115,7 @@ export default function Posts ({selectedFilter,fromDate,toDate}:PostsProps){
                     </div>
                     <div className={styles['task-wrap']}> 
                         {result.map((elem) => (
-                            <TaskWrap key={elem.id} title={elem.title} date={elem.date} time={elem.time} onDelete={() => handleDelete(elem.id)} id={elem.id} text={elem.note} />
+                            <TaskWrap key={elem.id} title={elem.title} date={elem.date} time={elem.time} onDelete={() =>  handleDelete(elem.id)} id={elem.id} text={elem.note} /> 
                         ))}
                     </div>
                 </div>

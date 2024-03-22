@@ -5,20 +5,22 @@ const { v4: uuidv4 } = require('uuid');
 
 
 router.post('/api/post', async (req, res) => {
+
+    let id = req.query.userId
+  
     try {
-      console.log("Generated UUID:", uuidv4());
-      const newPost = { ...req.body, id: uuidv4() };
-      console.log("New Post:", newPost);
-  
-  
-      const data = await fs.readFile('./JSON/toDo.json', 'utf8');
       
-      const posts = JSON.parse(data);
-  
-  
-      posts[0].post.push(newPost);
-  
-      await fs.writeFile('./JSON/toDo.json', JSON.stringify(posts, null, 2));
+      const newPost = { ...req.body, id: uuidv4() };
+      
+      const data = await fs.readFile('./JSON/posts.json', 'utf8');
+
+      const jsonData = JSON.parse(data);
+
+      const userPosts = jsonData.find((user) => user.userId === id);
+      
+      userPosts.posts.push(newPost);
+
+      await fs.writeFile('./JSON/posts.json', JSON.stringify(jsonData, null, 2));
       res.status(201).json(newPost);
     } catch (error) {
       console.error(error);

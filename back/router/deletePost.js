@@ -6,14 +6,29 @@ router.delete('/api/post/:id', async (req, res) => {
     const { id } = req.params;
     console.log("Deleting post with ID:", id);
 
+    const userId = req.query.userId;
+
     try {
-        const data = await fs.readFile('./JSON/toDo.json', 'utf8');
+        const data = await fs.readFile('./JSON/posts.json', 'utf8');
+
         let json = JSON.parse(data);
 
-        
-        json[0].post = json[0].post.filter(post => post.id !== id);
+        const userPostsIndex = json.findIndex(elem => elem.userId === userId);
 
-        await fs.writeFile('./JSON/toDo.json', JSON.stringify(json, null, 2));
+        if (userPostsIndex === -1) {
+            return res.status(404).send('No posts found for the user.');
+        }
+
+        const userPosts = json[userPostsIndex];
+
+        let posts = userPosts.posts;
+
+        posts = posts.filter(post => post.id !== id);
+
+        json[userPostsIndex].posts = posts;
+
+        await fs.writeFile('./JSON/posts.json', JSON.stringify(json, null, 2));
+
         res.status(200).send('Post deleted successfully.');
     } catch (error) {
         console.error(error);
