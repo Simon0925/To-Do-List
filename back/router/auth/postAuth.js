@@ -16,7 +16,6 @@ router.post('/api/auth', async (req, res) => {
         const user = users.find(user => user.email === email);
 
   
-
         if (!user) {
             return res.status(400).json({ error: 'User not found' });
         }

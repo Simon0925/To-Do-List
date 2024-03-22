@@ -9,7 +9,7 @@ export default  function Navigation() {
             <nav >
                 <NavLink   className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']}  to={'/'} >Add</NavLink>
 				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/posts'} >Posts</NavLink>
-				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/year'} >Year</NavLink>
+				<NavLink  className={({isActive})=>isActive ? styles['active-link']:styles['nav-bar-link']} to={'/profile'} >Profile</NavLink>
             </nav>
         </div>
         </>

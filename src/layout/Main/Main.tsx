@@ -1,6 +1,6 @@
 import Add from '../../pages/Add/Add';
 import Error from '../../pages/Error/Error';
-import Year from '../../pages/Year/Year';
+import Profile from '../../pages/Profile/Profile';
 import styles from './Main.module.scss';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import AllPosts from '../../pages/AllPosts/AllPosts';
@@ -13,7 +13,7 @@ export default  function Main (){
             <Routes>
                 <Route path='/' element={<Add />} />
                 <Route path="/posts" element={<AllPosts />} />
-                <Route path="/year" element={<Year />} />
+                <Route path="/Profile" element={<Profile />} />
                 <Route path="*" element={<Error />} />
 			</Routes>
 			<Outlet />
