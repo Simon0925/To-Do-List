@@ -14,8 +14,8 @@ export default function SignOut (){
     }
     
     return(
-        <div className={styles['sign-out-btn']}>
-                <Button text={'Sign out'} click={signOut} />
-            </div>
+        <>
+            <Button text={'Sign out'} click={signOut} />
+        </>
     )
 }

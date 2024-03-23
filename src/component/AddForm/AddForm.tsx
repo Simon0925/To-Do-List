@@ -4,6 +4,7 @@ import { addPost } from '../../store/post.slice';
 import styles from './AddForm.module.scss';
 import { AppDispatch } from '../../store/store';
 import Button from '../../UI/Button/Button';
+import InptDate from '../InptDate/InptDate';
 
 
 export default function AddForm() {
@@ -44,7 +45,8 @@ export default function AddForm() {
                         </div>
                         <div className={styles['inputs-container']}>
                             <label>Date</label>
-                            <input value={date} onChange={(e) => setDate(e.target.value) } type='date' />
+                            {/* <input value={date} onChange={(e) => setDate(e.target.value) } type='date' /> */}
+                            <InptDate />
                         </div>
                     </div>
                 <div className={styles['note-wrap']}>
