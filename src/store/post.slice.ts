@@ -25,8 +25,6 @@ export const fetchPosts = createAsyncThunk(
     async (_, { getState,rejectWithValue }) => {
 
       const authData = getId(getState() as RootState);
-
-      console.log('AuthData: ', authData.id);
       
       try {
         const response = await fetch(`http://localhost:3001/api/post?userId=${authData.id}`);

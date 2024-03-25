@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './Filter.module.scss';
 import { useDispatch } from 'react-redux';
 import { updateFilter } from '../../store/filter.slice';
+import InptDate from '../InptDate/InptDate';
 
 export default function Filter() {
   const dispatch = useDispatch();
@@ -19,23 +20,33 @@ export default function Filter() {
 
   },[fromDate,toDate])
 
-  const handleFilterChange = (filter) => {
+  const handleFilterChange = (filter:string) => {
     setSelectedFilter(filter);
     dispatch(updateFilter({ selectedFilter: filter, fromDate, toDate }));
   };
 
-  const handleFromDateChange = (event) => {
-    const value = event.target.value;
-    setFromDate(value);
+ 
+
+
+const handleFromDateChange = (day:number, month:number, year:number) => {
+  const dayS = day.toString().padStart(2, '0')
+  const monthS = (month +1).toString().padStart(2, '0')
+  const yearS = year.toString().padStart(4, '0')
+  const value = `${yearS}-${monthS}-${dayS}`
+ 
+  setFromDate(value);
     dispatch(updateFilter({ selectedFilter: 'fromDate', fromDate: value, toDate }));
 };
 
-const handleToDateChange = (event) => {
-    const value = event.target.value;
-    setToDate(value);
+const handleToDateChange = (day:number, month:number, year:number) => {
+  const dayS = day.toString().padStart(2, '0')
+  const monthS = (month +1).toString().padStart(2, '0')
+  const yearS = year.toString().padStart(4, '0')
+  const value = `${yearS}-${monthS}-${dayS}`
+
+  setToDate(value);
     dispatch(updateFilter({ selectedFilter: 'toDate', fromDate, toDate: value }));
 };
-
 
   useEffect(()=>{
     if(fromDate !== ''&& toDate !== '' ){
@@ -45,6 +56,7 @@ const handleToDateChange = (event) => {
     
   },[fromDate,toDate])
 
+ 
 
   useEffect(() => {
     dispatch(updateFilter({ selectedFilter, fromDate, toDate }));
@@ -55,7 +67,7 @@ const handleToDateChange = (event) => {
       <h3>Filter</h3>
       <div className={styles['filter-elements']}>
         <div className={styles['filter-elem']}>
-          <span>Today</span>
+          <span className={styles['filter-span']}>Today</span>
           <input
             type="radio"
             name="filter"
@@ -64,7 +76,7 @@ const handleToDateChange = (event) => {
           />
         </div>
         <div className={styles['filter-elem']}>
-          <span>Tomorrow</span>
+          <span className={styles['filter-span']}>Tomorrow</span>
           <input
             type="radio"
             name="filter"
@@ -73,7 +85,7 @@ const handleToDateChange = (event) => {
           />
         </div>
         <div className={styles['filter-elem']}>
-          <span>Week</span>
+          <span className={styles['filter-span']}>Week</span>
           <input
             type="radio"
             name="filter"
@@ -82,7 +94,7 @@ const handleToDateChange = (event) => {
           />
         </div>
         <div className={styles['filter-elem']}>
-          <span>Month</span>
+          <span className={styles['filter-span']}>Month</span>
           <input
             type="radio"
             name="filter"
@@ -90,15 +102,17 @@ const handleToDateChange = (event) => {
             onChange={() => handleFilterChange('month')}
           />
         </div>
-        <div className={styles['filter-range']}>
-          <span>from </span>
-          <input type="date" value={fromDate} onChange={handleFromDateChange} />
-          <span> to </span>
-          <input type="date" value={toDate} onChange={handleToDateChange} />
-         
+        <div className={styles['filter-elem']}>
+          <span className={styles['filter-span-renge']} >from </span>
+          <InptDate selectedDay={2} selectedMonth={3 - 1} selectedYear={2024} onDateChange={handleFromDateChange}
+          />
         </div>
         <div className={styles['filter-elem']}>
-          <span>All</span>
+          <span className={styles['filter-span-renge']}> to </span>
+          <InptDate selectedDay={2} selectedMonth={3 - 1} selectedYear={2024} onDateChange={handleToDateChange}/>
+        </div>
+        <div className={styles['filter-elem']}>
+          <span className={styles['filter-span']}>All</span>
           <input
             type="radio"
             name="filter"

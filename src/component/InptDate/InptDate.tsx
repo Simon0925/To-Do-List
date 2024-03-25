@@ -4,97 +4,122 @@ import { months } from './data';
 import calendarImage from './png/calendar.png';
 
 interface InptDateProps {
-    selectedDay: string;
-    selectedMonth: string;
-    selectedYear: string;
-    onDateChange: (day: string, month: string, year: string) => void;
+    selectedDay: number;
+    selectedMonth: number;
+    selectedYear: number;
+    onDateChange: (day: number, month: number, year: number) => void;
 }
 
-export default function InptDate() {
+const InptDate: React.FC<InptDateProps> = ({
+    selectedDay: propSelectedDay,
+    selectedMonth: propSelectedMonth,
+    selectedYear: propSelectedYear,
+    onDateChange,
+}) => {
+    const currentDate = new Date();
+    const [isActive, setIsActive] = useState(false);
+    const [localSelectedDay, setLocalSelectedDay] = useState(propSelectedDay || currentDate.getDate());
+    const [localSelectedMonth, setLocalSelectedMonth] = useState(
+        propSelectedMonth !== undefined ? propSelectedMonth : currentDate.getMonth()
+    );
+    const [localSelectedYear, setLocalSelectedYear] = useState(propSelectedYear || currentDate.getFullYear());
+    const [totalDays, setTotalDays] = useState(0);
 
-  const currentDate = new Date();
-  
-  const [isActive, setIsActive] = useState(false);
-  const [selectedDay, setSelectedDay] = useState(currentDate.getDate());
-  const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
-  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
-  const [totalDays, setTotalDays] = useState(0);
+    useEffect(() => {
+        if (!propSelectedDay && !propSelectedMonth && !propSelectedYear) {
+           
+            setLocalSelectedDay(currentDate.getDate());
+            setLocalSelectedMonth(currentDate.getMonth());
+            setLocalSelectedYear(currentDate.getFullYear());
+        }
+    }, [propSelectedDay, propSelectedMonth, propSelectedYear, currentDate]);
 
-  const toggleDatePicker = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = e.target as HTMLElement;
-    const isDateContainer = target.closest(`.${styles['dates-container']}`);
+    const toggleDatePicker = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const target = e.target as HTMLElement;
+        const isDateContainer = target.closest(`.${styles['dates-container']}`);
 
-    if (!isDateContainer) {
-      setIsActive(!isActive);
-    }
-  };
-
-  const goToPrevMonth = () => {
-    let prevMonth = selectedMonth - 1;
-    let prevYear = selectedYear;
-
-    if (prevMonth < 0) {
-      prevMonth = 11;
-      prevYear--;
-    }
-
-    setSelectedMonth(prevMonth);
-    setSelectedYear(prevYear);
-  };
-
-  const goToNextMonth = () => {
-    let nextMonth = selectedMonth + 1;
-    let nextYear = selectedYear;
-
-    if (nextMonth > 11) {
-      nextMonth = 0;
-      nextYear++;
-    }
-
-    setSelectedMonth(nextMonth);
-    setSelectedYear(nextYear);
-  };
-
-  useEffect(() => {
-    const calculateTotalDays = () => {
-      if (selectedMonth === 1) {
-        setTotalDays(28);
-      } else if (selectedMonth % 2 === 0) {
-        setTotalDays(31);
-      } else {
-        setTotalDays(30);
-      }
+        if (!isDateContainer) {
+            setIsActive(!isActive);
+        }
     };
 
-    calculateTotalDays();
-  }, [selectedMonth]);
+    const goToPrevMonth = () => {
+        let prevMonth = localSelectedMonth - 1;
+        let prevYear = localSelectedYear;
 
-  const handleDayClick = (day: number) => {
-    setSelectedDay(day);
-  };
+        if (prevMonth < 0) {
+            prevMonth = 11;
+            prevYear--;
+        }
 
-  return (
+        setLocalSelectedMonth(prevMonth);
+        setLocalSelectedYear(prevYear);
+    };
+
+    const goToNextMonth = () => {
+        let nextMonth = localSelectedMonth + 1;
+        let nextYear = localSelectedYear;
+
+        if (nextMonth > 11) {
+            nextMonth = 0;
+            nextYear++;
+        }
+
+        setLocalSelectedMonth(nextMonth);
+        setLocalSelectedYear(nextYear);
+    };
+
+    useEffect(() => {
+        const calculateTotalDays = () => {
+            if (localSelectedMonth === 1) {
+                setTotalDays(28);
+            } else if (localSelectedMonth % 2 === 0) {
+                setTotalDays(31);
+            } else {
+                setTotalDays(30);
+            }
+        };
+
+        calculateTotalDays();
+    }, [localSelectedMonth]);
+
+    const handleDayClick = (day: number) => {
+        setLocalSelectedDay(day);
+        onDateChange(day, localSelectedMonth, localSelectedYear); 
+    };
+
+    useEffect(() => {
+        setLocalSelectedDay(propSelectedDay);
+        setLocalSelectedMonth(propSelectedMonth);
+        setLocalSelectedYear(propSelectedYear);
+    }, [propSelectedDay, propSelectedMonth, propSelectedYear]);
+
     
-      <div onClick={toggleDatePicker} className={styles['date-piker-wrapper']}>
-        <div className={styles['selected-date']}>
-          {selectedDay.toString().padStart(2, '0')} / {selectedMonth.toString().padStart(2, '0')} / {selectedYear}
-          <img className={styles['calendar']}  src={calendarImage} alt="Calendar" />
+
+    return (
+        <div>
+        <div onClick={toggleDatePicker} className={styles['date-piker-wrapper']}>
+            <div className={styles['selected-date']}>
+                {localSelectedDay.toString().padStart(2, '0')} / {(localSelectedMonth + 1 ).toString().padStart(2, '0')} / {localSelectedYear}
+                <img className={styles['calendar']} src={calendarImage} alt="Calendar" />
+            </div>
+            <div className={`${styles['dates-container']} ${isActive ? styles['active'] : ''}`}>
+                <div className={styles['month']}>
+                    <div onClick={goToPrevMonth} className={`${styles['prev-month']} ${styles['arrowsL']}`}>&lt;</div>
+                    <div className={styles['month-item']}>{months[localSelectedMonth]} {localSelectedYear}</div>
+                    <div onClick={goToNextMonth} className={`${styles['next-month']} ${styles['arrowsR']}`}>&gt;</div>
+                </div>
+                <div className={styles['days-container']}>
+                    {Array.from({ length: totalDays }, (_, index) => index + 1).map(day => (
+                        <div key={day} className={styles['day']} style={day === localSelectedDay ? { backgroundColor: 'rgb(88, 87, 87)' } : {}} onClick={() => handleDayClick(day)}>
+                            {day}
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
-        <div className={`${styles['dates-container']} ${isActive ? styles['active'] : ''}`}>
-          <div className={styles['month']}>
-            <div onClick={goToPrevMonth} className={`${styles['prev-month']} ${styles['arrowsL']}`}>&lt;</div>
-            <div className={styles['month-item']}>{months[selectedMonth]} {selectedYear}</div>
-            <div onClick={goToNextMonth} className={`${styles['next-month']} ${styles['arrowsR']}`}>&gt;</div>
-          </div>
-          <div className={styles['days-container']}>
-            {Array.from({ length: totalDays }, (_, index) => index + 1).map(day => (
-              <div key={day} className={styles['day']} style={day === selectedDay ? { backgroundColor: 'rgb(88, 87, 87)' } : {}} onClick={() => handleDayClick(day)}>
-                {day}
-              </div>
-            ))}
-          </div>
         </div>
-      </div>
-   
-  );
-}
+    );
+};
+
+export default InptDate;

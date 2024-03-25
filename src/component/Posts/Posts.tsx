@@ -1,10 +1,12 @@
 import SearchSvg from '../../UI/SearchSvg/SearchSvg'
-import TaskWrap from '../TaskWrap/TaskWrap'
+
 import styles from './Posts.module.scss'
 import type { AppDispatch, RootState } from '../../store/store'
 import { useDispatch as useReduxDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchPosts,deletePost, Post } from '../../store/post.slice';
+
+import TaskWrap from '../TaskWrap/TaskWrap';
 
 
 interface PostsProps {
@@ -111,7 +113,7 @@ export default function Posts ({selectedFilter,fromDate,toDate}:PostsProps){
         <div className={styles['to-do-list-wrap']}>
                     <div className={styles['search-container']}>
                         <span><SearchSvg/></span>
-                        <input value={search} onChange={(e) => setSearch(e.target.value) } placeholder='search task'/>   
+                        <input className={styles['search-inpt']} value={search} onChange={(e) => setSearch(e.target.value) } placeholder='Search task'/>   
                     </div>
                     <div className={styles['task-wrap']}> 
                         {result.map((elem) => (

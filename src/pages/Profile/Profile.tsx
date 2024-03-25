@@ -1,5 +1,3 @@
-
-import InptDate from '../../component/InptDate/InptDate';
 import styles from './Profile.module.scss';
 
 
@@ -11,9 +9,9 @@ export default function Profile() {
     <>
       <div className={styles['wrap']}>
       Profile
-      <input type='date'/> 
+      <input type='time'/> 
       </div>
-      <InptDate />
+     
     </>
   );
 }

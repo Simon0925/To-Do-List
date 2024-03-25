@@ -12,7 +12,7 @@ export default  function LeftMenu() {
         <div className={styles['leftMenu-wrap']}>
             <div className={styles['leftMenu-container']} >
                 <div className={styles['logo']}>
-                    <p>To-Do</p>
+                    <p className={styles['logo-text']}>To-Do</p>
                 </div>
                 <div className={styles['nav']}>
                     <Navigation />

@@ -1,8 +1,6 @@
 .leftMenu-wrap {
     height: calc(100% - 25px); 
     width: calc(20% - 20px); 
-    // min-width: 270px;
-    // max-width: 270px;
     position: fixed;
     top: 10px; 
     left: 10px; 
@@ -24,9 +22,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            p{
+            .logo-text{
                 font-family: 'Brush Script MT', cursive; 
-                font-size: 50px;
+                font-size: 50px; 
             }
         }
 

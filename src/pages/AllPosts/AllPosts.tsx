@@ -9,7 +9,7 @@ export default function AllPosts() {
     const filterState = useSelector((state: RootState) => state.filter);
     const { selectedFilter, fromDate, toDate } = filterState;
     return (
-        <div className={styles.wrap}>
+        <div className={styles['wrap']}>
             <Posts selectedFilter={selectedFilter} fromDate={fromDate} toDate={toDate} />
             <Filter />
         </div>

@@ -18,7 +18,7 @@
         display: flex;
         align-items: center;
         min-height: 100px;
-        // background: black;
+      
         border-top-right-radius:30px ;
         border-top-left-radius: 30px;
         
@@ -37,14 +37,17 @@
             margin-top: 0.2em;
         }
     }
-      input{
+      .search-inpt{
         width: 100%;
+       
         border-radius: 15px;
         outline: none;
         border: 1px solid black;
         padding: 10px 3.5em 10px 2em;
         height: 20px;
         font-size: 20px;
+
+        font-family: sans-serif;
         
     }
     

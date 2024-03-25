@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    nav{
+    .nav-list{
         gap:50px;
         display: flex;
         flex-direction: column;
@@ -10,7 +10,7 @@
         font-weight: 900;
         .active-link{
             text-decoration: none;
-            color: red;
+            color: rgb(151, 151, 151);
         }
         .nav-bar-link{
             text-decoration: none;
