@@ -1,3 +1,4 @@
+import Time from '../../component/Time/Time';
 import styles from './Profile.module.scss';
 
 
@@ -11,7 +12,7 @@ export default function Profile() {
       Profile
       <input type='time'/> 
       </div>
-     
+      
     </>
   );
 }

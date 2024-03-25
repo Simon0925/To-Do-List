@@ -79,6 +79,11 @@
             .date-time{
                 display: flex;
                 justify-content: space-between;
+                .InptDate{
+                    height: 100px;
+                    display: flex;
+                    align-items: center;
+                  }
             }
             textarea{
                 height: 100px;
